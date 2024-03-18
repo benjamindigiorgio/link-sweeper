@@ -1,49 +1,45 @@
-# Link Sweeper
+# Link Sweeper 🧹
 
-[![npm](https://img.shields.io/npm/v/link-sweeper)](https://www.npmjs.com/package/link-sweeper)
-[![npm](https://img.shields.io/npm/dt/link-sweeper)](https://www.npmjs.com/package/link-sweeper)
+[![npm version](https://img.shields.io/npm/v/link-sweeper.svg)](https://www.npmjs.com/package/link-sweeper)
+[![npm downloads](https://img.shields.io/npm/dt/link-sweeper.svg)](https://www.npmjs.com/package/link-sweeper)
 
-Link Sweeper is a command-line tool designed to scan your web application projects for links, verifying their validity to ensure you have no dead links. It's built with the modern web in mind, supporting projects using frameworks like React, Vue, Svelte, and more.
-
-Currently it only checks for href values which include http but in the future I will work on adding support for relative paths and other types of links (i.e. `to` in Nuxt).
+**Link Sweeper** is a simple command-line tool designed to keep your web application's links fresh and functional. Tailored for modern web projects, it supports a variety of frameworks such as React, Vue, Svelte, and more, ensuring your project stays link-error-free.
 
 ## Features
 
-- **Directory Scanning**: Recursively scan specified directories for HTML, JSX, TSX, Vue, Svelte, and Astro files to find links.
-- **Link Validation**: Check each found link to determine if it's valid (reachable).
-- **Custom Ignored Directories**: Exclude specific directories from scanning, such as `node_modules`, `.git`, or any custom folders.
-- **Verbose Logging**: Option to log detailed results for each file scanned, providing insight into the link checking process.
+- **Comprehensive Scanning**: Traverses your project files (HTML, JSX, TSX, Vue, Svelte, Astro) to detect links.
+- **Robust Link Verification**: Validates each discovered link for accessibility, flagging any issues with unreachable URLs.
+- **Customizable Exclusions**: Allows specification of directories to ignore (e.g., `node_modules`, `.git`) during the scan.
+- **Detailed Reporting**: Offers verbose logging for insights into the scanning process and link verification results.
 
 ## Installation
 
-You can install Link Sweeper globally using npm:
+Install Link Sweeper globally for system-wide access:
 
-```bash
-npm install -g link-sweeper
-```
+    npm install -g link-sweeper
 
-or locally to your project:
+Or, add it to your project as a development dependency:
 
-```bash
-npm install link-sweeper --save-dev
-```
+    npm install link-sweeper --save-dev
 
 ## Usage
 
-To use Link Sweeper, simply run the command with the directories you want to scan:
+Run Link Sweeper in your project directory to scan for links:
 
-```bash
-link-sweeper scan ./src
-```
+    link-sweeper scan ./src
 
-You can also specify which directories to ignore:
+Exclude specific directories from the scan:
 
-```bash
-link-sweeper scan ./src --i node_modules,.git
-```
+    link-sweeper scan ./src --i node_modules,.git
 
-If you want to use any of the utilities provided by this library they are all available but make sure to install it as a dependency instead of a dev dependency.
+To check relative links against a development server:
 
-```bash
-npm install link-sweeper --save
-```
+    link-sweeper scan ./src --s http://localhost:3000 --r
+
+Ensure your development server is running when using the `--s` flag. If a server URL is not provided, Link Sweeper attempts to infer the default development server from your project's `package.json`.
+
+For integration into your project or to utilize Link Sweeper's utilities directly:
+
+    npm install link-sweeper --save
+
+Happy Sweeping! 🚀
