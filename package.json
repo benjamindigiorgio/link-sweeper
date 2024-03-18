@@ -1,0 +1,39 @@
+{
+  "name": "link-checker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "unbuild"
+  },
+  "bin": {
+    "link-checker": "./dist/cli.mjs"
+  },
+  "build": {
+    "entries": [
+      "./src/cli",
+      "./src/index"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/parser": "^7.24.0",
+    "@babel/traverse": "^7.24.0",
+    "axios": "^1.6.8",
+    "chalk": "^5.3.0",
+    "cheerio": "^1.0.0-rc.12",
+    "typescript": "^5.4.2",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/babel__traverse": "^7.20.5",
+    "@types/cheerio": "^0.22.35",
+    "@types/node": "^20.11.28",
+    "@types/yargs": "^17.0.32",
+    "unbuild": "^2.0.0"
+  }
+}
