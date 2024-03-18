@@ -74,33 +74,60 @@ describe("scanFiles", () => {
   it("scans directories and files correctly", (done) => {
     const ignoredDirectories: string[] = [];
     const verbose = false;
+    const server = "http://localhost:3000";
+    const relative = false;
     const processFileMock = jest.fn(() => {
       if (processFileMock.mock.calls.length === 1) {
         expect(processFileMock).toHaveBeenCalledWith(
-          expect.stringContaining("file1.html")
+          expect.stringContaining("file1.html"),
+          expect.stringContaining(server),
+          expect.any(Boolean),
+          expect.any(Boolean)
         );
 
         done();
       }
     });
 
-    scanFiles("/test", ignoredDirectories, verbose, processFileMock);
+    scanFiles(
+      "/test",
+      ignoredDirectories,
+      server,
+      verbose,
+      relative,
+      processFileMock
+    );
   });
 
   it("ignores specified directories", (done) => {
     const ignoredDirectories = ["/test/subdirectory"];
     const verbose = false;
+    const server = "http://localhost:3000";
+    const relative = false;
     const processFileMock = jest.fn();
 
-    scanFiles("/test", ignoredDirectories, verbose, processFileMock);
+    scanFiles(
+      "/test",
+      ignoredDirectories,
+      server,
+      verbose,
+      relative,
+      processFileMock
+    );
 
     process.nextTick(() => {
       expect(processFileMock).toHaveBeenCalledTimes(1);
       expect(processFileMock).toHaveBeenCalledWith(
-        expect.stringContaining("file1.html")
+        expect.stringContaining("file1.html"),
+        expect.stringContaining(server),
+        expect.any(Boolean),
+        expect.any(Boolean)
       );
       expect(processFileMock).not.toHaveBeenCalledWith(
-        expect.stringContaining("file2.txt")
+        expect.stringContaining("file2.txt"),
+        expect.stringContaining(server),
+        expect.any(Boolean),
+        expect.any(Boolean)
       );
       done();
     });

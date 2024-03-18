@@ -17,7 +17,11 @@ describe("parseHtmlFileContent", () => {
       </html>
     `;
 
-    const links = parseHtmlFileContent(htmlContent);
+    const links = parseHtmlFileContent(
+      htmlContent,
+      "http://localhost:3000",
+      false
+    );
     expect(links).toEqual(["https://example.com", "https://another.com"]);
   });
 });

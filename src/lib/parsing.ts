@@ -12,21 +12,58 @@ if (_traverse.default) {
   traverse = _traverse;
 }
 
-export function parseHtmlFileContent(htmlContent: string): string[] {
+export function parseHtmlFileContent(
+  htmlContent: string,
+  server: string,
+  relative: boolean
+): string[] {
   const $ = cheerio.load(htmlContent);
   const links: string[] = [];
 
   $("[href]").each((_, element) => {
     const href = $(element).attr("href");
-    if (href && href.includes("http")) {
-      links.push(href);
+    let formattedLink: string | null | undefined = null;
+
+    if (href?.includes("http")) {
+      formattedLink = href;
+    } else if (
+      href &&
+      relative &&
+      !href.startsWith("#") &&
+      !href.startsWith("{") &&
+      !href.includes("mailto:") &&
+      !href.includes("tel:") &&
+      !href.includes("javascript:") &&
+      !href.includes("data:") &&
+      !href.includes("file:") &&
+      !href.includes("ftp:") &&
+      !href.includes("irc:") &&
+      !href.includes("magnet:") &&
+      !href.includes("news:") &&
+      !href.includes("nntp:") &&
+      !href.includes("sip:") &&
+      !href.includes("sms:") &&
+      !href.includes("smsto:") &&
+      !href.includes("ssh:") &&
+      !href.includes("://") &&
+      !href.includes("${") &&
+      !(href === "#")
+    ) {
+      formattedLink = `${server}${href}`;
+    }
+    if (formattedLink) {
+      links.push(formattedLink);
     }
   });
 
   return links;
 }
 
-export function parseJSXorTSXFile(filePath: string): string[] {
+export function parseJSXorTSXFile(
+  filePath: string,
+  server: string,
+  relative: boolean
+): { links: string[]; fileName?: string } {
   const code = fs.readFileSync(filePath, "utf8");
   const ast = babelParser.parse(code, {
     sourceType: "module",
@@ -42,39 +79,98 @@ export function parseJSXorTSXFile(filePath: string): string[] {
           attribute.type === "JSXAttribute" && attribute.name.name === "href"
       );
 
-      if (
-        hrefAttribute &&
-        hrefAttribute.value?.type === "StringLiteral" &&
-        hrefAttribute.value.value.includes("http")
-      ) {
-        links.push(hrefAttribute.value.value);
+      if (hrefAttribute && hrefAttribute.value?.type === "StringLiteral") {
+        const href = hrefAttribute.value.value;
+        let formattedLink: string | null = null;
+        if (hrefAttribute.value.value.includes("http")) {
+          formattedLink = href;
+        } else if (
+          relative &&
+          !href.startsWith("#") &&
+          !href.startsWith("{") &&
+          !href.includes("mailto:") &&
+          !href.includes("tel:") &&
+          !href.includes("javascript:") &&
+          !href.includes("data:") &&
+          !href.includes("file:") &&
+          !href.includes("ftp:") &&
+          !href.includes("irc:") &&
+          !href.includes("magnet:") &&
+          !href.includes("news:") &&
+          !href.includes("nntp:") &&
+          !href.includes("sip:") &&
+          !href.includes("sms:") &&
+          !href.includes("smsto:") &&
+          !href.includes("ssh:") &&
+          !href.includes("://") &&
+          !href.includes("${") &&
+          !(href === "#")
+        ) {
+          formattedLink = `${server}${href}`;
+        }
+        if (formattedLink) {
+          links.push(formattedLink);
+        }
       }
     },
   });
 
-  return links;
+  return { links: links, fileName: filePath.split("/").pop() };
 }
 
-export function parseVueFile(filePath: string): string[] {
+export function parseVueFile(
+  filePath: string,
+  server: string,
+  relative: boolean
+): { links: string[]; fileName?: string } | null {
   const fileContent = fs.readFileSync(filePath, "utf8");
   const templateMatch = fileContent.match(/<template>([\s\S]*?)<\/template>/);
-  if (!templateMatch) return [];
+  if (!templateMatch) return null;
 
   const templateContent = templateMatch[1];
-  return parseHtmlFileContent(templateContent);
+  return {
+    links: parseHtmlFileContent(templateContent, server, relative),
+    fileName: filePath.split("/").pop(),
+  };
 }
 
-export function parseSvelteFile(filePath: string): string[] {
+export function parseSvelteFile(
+  filePath: string,
+  server: string,
+  relative: boolean
+): { links: string[]; fileName?: string } {
   const fileContent = fs.readFileSync(filePath, "utf8");
-  return parseHtmlFileContent(fileContent);
+  return {
+    links: parseHtmlFileContent(fileContent, server, relative),
+    fileName: filePath.split("/").pop(),
+  };
 }
 
-export function parseAstroFile(filePath: string): string[] {
+export function parseAstroFile(
+  filePath: string,
+  server: string,
+  relative: boolean
+): { links: string[]; fileName?: string } {
   const fileContent = fs.readFileSync(filePath, "utf8");
   // Extract the content outside of frontmatter (if present)
   const contentWithoutFrontmatter = fileContent
     .split("---")
     .slice(2)
     .join("---");
-  return parseHtmlFileContent(contentWithoutFrontmatter);
+  return {
+    links: parseHtmlFileContent(contentWithoutFrontmatter, server, relative),
+    fileName: filePath.split("/").pop(),
+  };
+}
+
+export function parseHtmlFile(
+  filePath: string,
+  server: string,
+  relative: boolean
+): { links: string[]; fileName?: string } {
+  const fileContent = fs.readFileSync(filePath, "utf8");
+  return {
+    links: parseHtmlFileContent(fileContent, server, relative),
+    fileName: filePath.split("/").pop(),
+  };
 }

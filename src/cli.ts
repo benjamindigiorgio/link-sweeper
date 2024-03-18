@@ -2,7 +2,7 @@
 
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { scanFiles } from "./lib/scanFiles";
+import { main } from "./lib/scanFiles";
 
 // Setup command line arguments
 yargs(hideBin(process.argv))
@@ -29,14 +29,36 @@ yargs(hideBin(process.argv))
         type: "boolean",
         default: false,
       });
+
+      yargs.option("server", {
+        alias: "s",
+        describe: "Local dev server url",
+        type: "string",
+        default: "http://localhost:3000",
+      });
+
+      yargs.option("relative", {
+        alias: "r",
+        describe: "Check relative links",
+        type: "boolean",
+        default: false,
+      });
     },
     (argv) => {
       if (
         typeof argv.directory === "string" &&
         argv.ignore instanceof Array &&
-        typeof argv.verbose === "boolean"
+        typeof argv.verbose === "boolean" &&
+        typeof argv.relative === "boolean" &&
+        typeof argv.server === "string"
       ) {
-        scanFiles(argv.directory, argv.ignore, argv.verbose);
+        main(
+          argv.directory,
+          argv.ignore,
+          argv.server,
+          argv.verbose,
+          argv.relative
+        );
       }
     }
   )

@@ -13,6 +13,9 @@ jest.mock("fs", () => ({
 
 const readFileSyncMock = fs.readFileSync as jest.Mock;
 
+const server = "http://localhost:3000";
+const relative = false;
+
 describe("parse library content", () => {
   it("extracts links correctly from JSX/TSX content", () => {
     const jsxContent = `
@@ -25,8 +28,11 @@ describe("parse library content", () => {
 
     readFileSyncMock.mockReturnValue(jsxContent);
 
-    const links = parseJSXorTSXFile("/path/to/file.tsx");
-    expect(links).toEqual(["https://react-example.com"]);
+    const links = parseJSXorTSXFile("/path/to/file.tsx", server, relative);
+    expect(links).toEqual({
+      fileName: "file.tsx",
+      links: ["https://react-example.com"],
+    });
   });
 
   describe("parseVueFile", () => {
@@ -39,8 +45,11 @@ describe("parse library content", () => {
 
       readFileSyncMock.mockReturnValue(vueContent);
 
-      const links = parseVueFile("/path/to/file.vue");
-      expect(links).toEqual(["https://vue-example.com"]);
+      const links = parseVueFile("/path/to/file.vue", server, relative);
+      expect(links).toEqual({
+        fileName: "file.vue",
+        links: ["https://vue-example.com"],
+      });
     });
   });
 
@@ -55,8 +64,11 @@ describe("parse library content", () => {
 
       readFileSyncMock.mockReturnValue(svelteContent);
 
-      const links = parseSvelteFile("/path/to/file.svelte");
-      expect(links).toEqual(["https://svelte-example.com"]);
+      const links = parseSvelteFile("/path/to/file.svelte", server, relative);
+      expect(links).toEqual({
+        fileName: "file.svelte",
+        links: ["https://svelte-example.com"],
+      });
     });
   });
 
@@ -72,8 +84,11 @@ describe("parse library content", () => {
       // Simulating the reading of an Astro file, skipping the front matter
       readFileSyncMock.mockReturnValue(astroContent);
 
-      const links = parseAstroFile("/path/to/file.astro");
-      expect(links).toEqual(["https://astro-example.com"]);
+      const links = parseAstroFile("/path/to/file.astro", server, relative);
+      expect(links).toEqual({
+        fileName: "file.astro",
+        links: ["https://astro-example.com"],
+      });
     });
   });
 });
