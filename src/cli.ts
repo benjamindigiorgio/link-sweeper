@@ -7,7 +7,7 @@ import { scanFiles } from "./lib/scanFiles";
 // Setup command line arguments
 yargs(hideBin(process.argv))
   .command(
-    "scan <directory>",
+    "scan [directory] [options]",
     "Scan the directory for files and check links",
     (yargs) => {
       yargs.positional("directory", {
@@ -31,9 +31,12 @@ yargs(hideBin(process.argv))
       });
     },
     (argv) => {
-      if (typeof argv.directory === "string" && argv.ignore instanceof Array) {
-        // console.log(`Scanning directory: ${argv.directory}`);
-        scanFiles(argv.directory, argv.ignore);
+      if (
+        typeof argv.directory === "string" &&
+        argv.ignore instanceof Array &&
+        typeof argv.verbose === "boolean"
+      ) {
+        scanFiles(argv.directory, argv.ignore, argv.verbose);
       }
     }
   )

@@ -3,8 +3,14 @@ import fs from "fs";
 import * as babelParser from "@babel/parser";
 import _traverse from "@babel/traverse";
 import { JSXAttribute } from "@babel/types";
+let traverse: typeof _traverse;
 // @ts-ignore - This is a workaround for a bug in the imports for @babel/traverse
-const traverse: typeof _traverse = _traverse.default;
+if (_traverse.default) {
+  // @ts-ignore - This is a workaround for a bug in the imports for @babel/traverse
+  traverse = _traverse.default;
+} else {
+  traverse = _traverse;
+}
 
 export function parseHtmlFileContent(htmlContent: string): string[] {
   const $ = cheerio.load(htmlContent);
