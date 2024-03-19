@@ -1,3 +1,12 @@
+## [1.3.1](https://github.com/benjamindigiorgio/link-sweeper/compare/v1.3.0...v1.3.1) (2024-03-19)
+
+
+### Bug Fixes
+
+* fix publish routine ([b97e315](https://github.com/benjamindigiorgio/link-sweeper/commit/b97e3154724f45b8ff338b12c804fabc69f7b64a))
+
+
+
 # [1.3.0](https://github.com/benjamindigiorgio/link-sweeper/compare/v1.2.0...v1.3.0) (2024-03-19)
 
 
