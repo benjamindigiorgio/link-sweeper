@@ -1,3 +1,12 @@
+## [1.3.2](https://github.com/benjamindigiorgio/link-sweeper/compare/v1.3.1...v1.3.2) (2024-03-19)
+
+
+### Bug Fixes
+
+* minor bug ([85bbca0](https://github.com/benjamindigiorgio/link-sweeper/commit/85bbca0f11d09405a853daa001b1f224b47e2534))
+
+
+
 ## [1.3.1](https://github.com/benjamindigiorgio/link-sweeper/compare/v1.3.0...v1.3.1) (2024-03-19)
 
 

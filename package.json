@@ -1,6 +1,6 @@
 {
   "name": "link-sweeper",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "Link Sweeper is a simple command-line tool designed to keep your web application's links fresh and functional. Tailored for modern web projects, it supports a variety of frameworks such as React, Vue, Svelte, and more, ensuring your project stays link-error-free.",
   "homepage": "https://github.com/benjamindigiorgio/link-sweeper",
   "main": "src/index.ts",
