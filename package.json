@@ -29,7 +29,10 @@
     "astro",
     "solid-js"
   ],
-  "author": "Benjamin Di Giorgio",
+  "author": {
+    "name": "Benjamin Di Giorgio",
+    "email": "bendigiorgio@gmail.com"
+  },
   "license": "MIT",
   "dependencies": {
     "@babel/parser": "^7.24.0",
