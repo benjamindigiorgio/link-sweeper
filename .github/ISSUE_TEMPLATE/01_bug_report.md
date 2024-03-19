@@ -1,34 +1,40 @@
 ---
-name: Bug report
+name: Bug Report
 about: Create a report to help us improve
 ---
 
-<!-- Thanks for reporting an issue! Please make sure you click the link above to view the issue guidelines, then fill out the blanks below. -->
+### Thanks for taking the time to report a bug!
 
-## What are the steps to reproduce this issue?
+Please follow the guidelines below to help us address your issue as quickly and effectively as possible.
+
+### Steps to Reproduce
+
+Please provide detailed steps for reproducing the issue.
 
 1. …
 2. …
 3. …
 
-## What happens?
+### Expected Behavior
 
-…
+What were you expecting to happen?
 
-## What were you expecting to happen?
+### Actual Behavior
 
-…
+Please describe the actual behavior you observed.
 
-## Any logs, error output, etc?
+### Logs and Error Output
 
-<!-- If it’s long, please paste to https://gist.github.com/ and insert the link here. -->
+If applicable, provide any logs or error output to help diagnose the issue. For longer logs, consider pasting them to https://gist.github.com/ and sharing the link here.
 
-## Any other comments?
+### Additional Comments
 
-…
+Any other information you believe is relevant to the issue.
 
-## What versions of software are you using?
+### Environment Details
+
+Please provide details about the environment in which the bug was encountered.
 
 **Operating System:** …
 
-**Toolchain Version:** …
+**Software Version:** …
