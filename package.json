@@ -16,9 +16,20 @@
       "./src/index"
     ]
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "links",
+    "testing",
+    "test",
+    "web",
+    "react",
+    "vue",
+    "html",
+    "svelte",
+    "astro",
+    "solid-js"
+  ],
+  "author": "Benjamin Di Giorgio",
+  "license": "MIT",
   "dependencies": {
     "@babel/parser": "^7.24.0",
     "@babel/preset-env": "^7.24.0",
