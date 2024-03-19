@@ -23,6 +23,7 @@ _Has this feature or a similar one been requested before? If yes, please provide
 
 _If this feature request is approved, would you be willing to contribute to its implementation by submitting a pull request?_
 
+- [ ] Yes
 - [ ] Yes (I might need assistance with submitting a PR)
 - [ ] No
 

@@ -5,7 +5,6 @@ import chalk from "chalk";
 import {
   parseAstroFile,
   parseHtmlFile,
-  parseHtmlFileContent,
   parseJSXorTSXFile,
   parseSvelteFile,
   parseVueFile,
